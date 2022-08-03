@@ -278,19 +278,93 @@
 //销售额统计
 (function () {
   $(document).ready(function () {
+    const data = {
+      year: {
+        info: [
+          '2099年',
+          '2199年',
+          '2299年',
+          '2399年',
+          '2499年',
+          '2599年',
+          '2699年',
+          '2799年',
+          '2899年',
+          '2999年',
+          '3099年',
+          '3199年',
+        ],
+        detail: [
+          [24, 40, 101, 134, 90, 230, 210, 230, 120, 230, 210, 120],
+          [40, 64, 191, 324, 290, 330, 310, 213, 180, 200, 180, 79],
+        ],
+      },
+      quarter: {
+        info: ['第一季度', '第二季度', '第三季度', '第四季度'],
+        detail: [
+          [23, 75, 12, 97],
+          [43, 31, 65, 23],
+        ],
+      },
+      month: {
+        info: [
+          '1月',
+          '2月',
+          '3月',
+          '4月',
+          '5月',
+          '6月',
+          '7月',
+          '8月',
+          '9月',
+          '10月',
+          '11月',
+          '12月',
+        ],
+        detail: [
+          [34, 87, 32, 76, 98, 12, 32, 87, 39, 36, 29, 36],
+          [56, 43, 98, 21, 56, 87, 43, 12, 43, 54, 12, 98],
+        ],
+      },
+      week: {
+        info: ['近1周', '近2周', '近3周', '近4周', '近5周', '近6周'],
+        detail: [
+          [43, 73, 62, 54, 91, 54, 84, 43, 86, 43, 54, 53],
+          [32, 54, 34, 87, 32, 45, 62, 68, 93, 54, 54, 24],
+        ],
+      },
+    };
+
     let _index = 0;
+
     $('.sales .tabs ').on('click', 'a', function () {
       _index = $(this).index();
       tabs();
     });
+    let timer = null;
 
-    setInterval(() => {
-      tabs();
-      _index += 1;
-      if (_index >= 4) {
-        _index = 0;
+    function toggle() {
+      clearInterval(timer);
+      timer = setInterval(() => {
+        // console.log('123');
+        tabs();
+        _index += 1;
+        if (_index >= 4) {
+          _index = 0;
+        }
+      }, 1000);
+    }
+
+    toggle();
+
+    $('.sales').hover(
+      function () {
+        clearInterval(timer);
+      },
+      function () {
+        toggle();
       }
-    }, 1000);
+    );
 
     function tabs() {
       $('.sales .tabs a')
@@ -298,6 +372,14 @@
         .addClass('active')
         .siblings()
         .removeClass('active');
+      const _type = $('.sales .tabs a').get(_index).dataset.type;
+      const _data = data[_type];
+      // console.log(_data);
+
+      option.xAxis.data = _data.info;
+      option.series[0].data = _data.detail[0];
+      option.series[1].data = _data.detail[1];
+      myChart.setOption(option);
     }
 
     const line = document.querySelector('.line');
@@ -374,15 +456,24 @@
           name: '预期销售额',
           type: 'line',
           data: [120, 132, 101, 134, 90, 230, 210],
+          stack: 'Total',
+          smooth: true,
         },
         {
           name: '实际销售额',
           type: 'line',
           data: [220, 182, 191, 234, 290, 330, 310],
+          stack: 'Total',
+          smooth: true,
         },
       ],
     };
 
+    // 初始化渲染年份的数据
+    const year = data.year;
+    option.xAxis.data = year.info;
+    option.series[0].data = year.detail[0];
+    option.series[1].data = year.detail[1];
     myChart.setOption(option);
 
     window.addEventListener('resize', function () {
@@ -390,3 +481,5 @@
     });
   });
 })();
+
+

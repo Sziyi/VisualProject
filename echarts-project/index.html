@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/index.css" type="text/css">
     <link rel="stylesheet" href="css/order.css" type="text/css">
     <link rel="stylesheet" href="css/sales.css" type="text/css">
+    <link rel="stylesheet" href="css/wrap.css" type="text/css">
+    <link rel="stylesheet" href="css/top.css" type="text/css">
     <script src="js/echarts.js"></script>
     <script src="js/china.js"></script>
     <script src="js/flexible.js"></script>
@@ -279,19 +281,38 @@
                     <div class="caption">
                         <h3>销售额统计</h3>
                         <div class="tabs">
-                            <a class="active" href="javascript:;">年</a>
-                            <a href="javascript:;">季</a>
-                            <a href="javascript:;">月</a>
-                            <a href="javascript:;">周</a>
+                            <a class="active" data-type="year" href="javascript:;">年</a>
+                            <a data-type="quarter" href="javascript:;">季</a>
+                            <a data-type="month" href="javascript:;">月</a>
+                            <a data-type="week" href="javascript:;">周</a>
                         </div>
                     </div>
                     <div class="chart">
-                        <div class="line"></div>
+                        <div class="line">123</div>
                     </div>
                 </div>
             </div>
+            <div class="wrap">
+                <div class="panel channel">
+                    <div class="inner">
+                        <h3>渠道分布</h3>
+                        <div class="chart">
+                            <div class="radar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel quarter">
+                    <div class="inner">
+                        <h3>一季度销售进度</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel top">
+                <div class="inner">
+                    全国热榜
+                </div>
+            </div>
         </div>
-    </div>
 </body>
 
 </html>
